@@ -8,14 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     
-    @IBOutlet weak var counterLabel: UILabel!
-    @IBOutlet weak var logView: UITextView!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var logView: UITextView!
     
-    var counterValue: Int = 0
+    private var counterValue: Int = 0
+    private let dateFormatter = DateFormatter()
     
-    var counter: Int {
+    private var counter: Int {
         get {
             return counterValue
         }
@@ -28,10 +28,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         
     }
     
-    @IBAction func minusTapped(_ sender: UIButton) {
+    @IBAction private func minusTapped(_ sender: UIButton) {
         guard counter > 0 else {
             log("попытка уменьшить значение счётчика ниже 0")
             return
@@ -40,21 +41,18 @@ class ViewController: UIViewController {
         log("значение изменено на -1")
     }
     
-    @IBAction func plusTapped(_ sender: UIButton) {
+    @IBAction private func plusTapped(_ sender: UIButton) {
         counter += 1
         log("значение изменено на +1")
     }
     
-    @IBAction func clearTapped(_ sender: UIButton) {
+    @IBAction private func clearTapped(_ sender: UIButton) {
         guard counter > 0 else { return }
         counter = 0
         log("значение сброшено")
     }
     
-    func log(_ text: String){
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+    private func log(_ text: String){
         
         let dateTime = dateFormatter.string(from: Date())
         
@@ -62,6 +60,4 @@ class ViewController: UIViewController {
         
         logView.text.append(logString)
     }
-    
 }
-
